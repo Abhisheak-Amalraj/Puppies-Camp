@@ -12,8 +12,8 @@ var express     = require("express"),
     session = require("express-session"),
     seedDB      = require("./seeds"),
     methodOverride = require("method-override");
-    // uri                     ="mongodb+srv://abhisheak:<password>@yelpcamp-aevgg.mongodb.net/test?retryWrites=true&w=majority";
-    // mongoose.connect(uri);
+    uri                     ="mongodb+srv://abhisheak:<password>@yelpcamp-aevgg.mongodb.net/test?retryWrites=true&w=majority";
+    mongoose.connect(uri);
 // configure dotenv
 require('dotenv').load();
 
@@ -22,15 +22,10 @@ var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes      = require("./routes/index")
     
-    mongoose.connect("mongodb+srv://abhisheak:<password>@yelpcamp-aevgg.mongodb.net/test?retryWrites=true&w=majority", {
+    mongoose.connect('mongodb://localhost/yelp_camp_v11', {
         useNewUrlParser: true,
         useUnifiedTopology: true
-        }) .then(() => {
-        console.log('Connected to DB!');
-    }).catch(err => {
-        console.log('ERROR:', err.message);
-    });
-    
+        });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -66,4 +61,4 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT, process.env.IP);
+app.listen(3000);;
